@@ -18,7 +18,7 @@ import first from '@ckeditor/ckeditor5-utils/src/first';
  */
 export function modelToViewStyleAttribute( styles ) {
 	return ( evt, data, conversionApi ) => {
-		if ( !conversionApi.consumable.consume( data.item, evt.name ) ) {
+		if ( !conversionApi.consumable.consume( data.item, evt.name ) || data.item.parent.name === 'spoilerContent') {
 			return;
 		}
 
@@ -65,7 +65,7 @@ export function viewToModelStyleAttribute( styles ) {
 		// Convert style one by one.
 		for ( const style of filteredStyles ) {
 			// Try to consume class corresponding with style.
-			if ( conversionApi.consumable.consume( viewFigureElement.parent, { classes: style.className } ) ) {
+			if ( conversionApi.consumable.consume( viewFigureElement.parent, { classes: style.className } ) && modelMediaElement.parent.name !== 'spoilerContent' ) {
 				// And convert this style to model attribute.
 				conversionApi.writer.setAttribute( 'mediaStyle', style.name, modelMediaElement );
 			}
