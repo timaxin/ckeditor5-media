@@ -55,7 +55,7 @@ export default class MediaStyleCommand extends Command {
 	refresh() {
 		const element = this.editor.model.document.selection.getSelectedElement();
 
-		this.isEnabled = !!element && element.is( 'media' );
+		this.isEnabled = !!element && element.is( 'media' ) && element.parent.name !== 'spoilerContent';
 
 		if ( !element ) {
 			this.value = false;
